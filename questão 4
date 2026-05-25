@@ -1,0 +1,37 @@
+from typing import Protocol
+
+
+class Imprimivel(Protocol):
+    def imprimir(self):
+        pass
+
+class Boleto:
+    def __init__(self, codigo, valor):
+        self.codigo = codigo
+        self.valor = valor
+    def imprimir(self):
+        print(f"Boleto: {self.codigo} | Valor: R$ {self.valor}")
+
+class Etiqueta:
+    def __init__(self, destinatario, endereco):
+        self.destinatario = destinatario
+        self.endereco = endereco
+    def imprimir(self):
+        print(f"Etiqueta para {self.destinatario} - {self.endereco}")
+
+class RelatorioSimples:
+    def __init__(self, titulo):
+        self.titulo = titulo
+    def imprimir(self):
+        print(f"Relatório: {self.titulo}")
+
+def processar_impressao(item: Imprimivel):
+    item.imprimir()
+
+boleto = Boleto("123456", 250)
+etiqueta = Etiqueta("Matheus", "Manaus")
+relatorio = RelatorioSimples("Relatório Financeiro")
+
+processar_impressao(boleto)
+processar_impressao(etiqueta)
+processar_impressao(relatorio)
