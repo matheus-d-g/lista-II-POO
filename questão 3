@@ -1,0 +1,39 @@
+from abc import ABC, abstractmethod
+
+class Notificador(ABC):
+    @abstractmethod
+    def notificar(self, mensagem):
+        pass
+
+class NotificadorEmail(Notificador):
+
+    def notificar(self, mensagem):
+        print(f"[EMAIL] {mensagem}")
+
+class NotificadorSMS(Notificador):
+    def notificar(self, mensagem):
+        print(f"[SMS] {mensagem}")
+
+class NotificadorApp(Notificador):
+    def notificar(self, mensagem):
+        print(f"[APP] {mensagem}")
+
+class CentralNotificacoes:
+    def __init__(self):
+        self.notificadores = []
+    def adicionar_notificador(self, notificador):
+        self.notificadores.append(notificador)
+    def enviar_para_todos(self, mensagem):
+        for notificador in self.notificadores:
+            notificador.notificar(mensagem)
+
+central = CentralNotificacoes()
+email = NotificadorEmail()
+sms = NotificadorSMS()
+app = NotificadorApp()
+
+central.adicionar_notificador(email)
+central.adicionar_notificador(sms)
+central.adicionar_notificador(app)
+
+central.enviar_para_todos("Sistema em manutenção às 22h.")
