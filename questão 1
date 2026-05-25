@@ -1,0 +1,78 @@
+from abc import ABC, abstractmethod
+
+class Video(Midia):
+    def __init__(self, titulo, duracao, resolucao):
+        super().__init__(titulo, duracao)
+        self.resolucao = resolucao
+
+    def reproduzir(self):
+        print(f"Reproduzindo vídeo '{self.titulo}' em {self.resolucao}")
+
+
+from abc import ABC, abstractmethod
+
+class Midia(ABC):
+    def __init__(self, titulo, duracao):
+        self.titulo = titulo
+        self.duracao = duracao
+
+    def mostrar_info(self):
+        print(f"Título: {self.titulo}")
+        print(f"Duração: {self.duracao} minutos")
+
+    @abstractmethod
+    def reproduzir(self):
+        pass
+
+plataforma = Plataforma("EduTech")
+
+video = Video("POO em Python", 20, "1080p")
+podcast = Podcast("TechCast", 45, "Carlos")
+texto = TextoNarrado("Introdução à IA", 15, "Português")
+
+plataforma.adicionar_midia(video)
+plataforma.adicionar_midia(podcast)
+plataforma.adicionar_midia(texto)
+
+plataforma.listar_midias()
+plataforma.reproduzir_todas()
+class Plataforma:
+    def __init__(self, nome):
+        self.nome = nome
+        self.midias = []
+
+    def adicionar_midia(self, midia):
+        self.midias.append(midia)
+
+    def listar_midias(self):
+        print(f"\nMídias da plataforma {self.nome}:")
+        for midia in self.midias:
+            midia.mostrar_info()
+            print("-" * 30)
+
+    def reproduzir_todas(self):
+        print("\nReproduzindo todas as mídias:")
+        for midia in self.midias:
+            midia.reproduzir()
+
+
+from abc import ABC, abstractmethod
+
+class Podcast(Midia):
+    def __init__(self, titulo, duracao, apresentador):
+        super().__init__(titulo, duracao)
+        self.apresentador = apresentador
+
+    def reproduzir(self):
+        print(f"Reproduzindo podcast '{self.titulo}' com {self.apresentador}")
+
+
+
+class TextoNarrado(Midia):
+    def __init__(self, titulo, duracao, idioma):
+        super().__init__(titulo, duracao)
+        self.idioma = idioma
+
+    def reproduzir(self):
+        print(f"Reproduzindo texto narrado '{self.titulo}' em {self.idioma}")
+
